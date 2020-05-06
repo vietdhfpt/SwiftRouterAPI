@@ -15,6 +15,9 @@
 		04523CA72462990500F2616B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04523CA52462990500F2616B /* LaunchScreen.storyboard */; };
 		04523CB22462990500F2616B /* RouterAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04523CB12462990500F2616B /* RouterAPITests.swift */; };
 		04523CBD2462990600F2616B /* RouterAPIUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04523CBC2462990600F2616B /* RouterAPIUITests.swift */; };
+		04523CCB24629A2000F2616B /* RandomFact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04523CCA24629A2000F2616B /* RandomFact.swift */; };
+		04523CCD24629B0B00F2616B /* CatFactProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04523CCC24629B0B00F2616B /* CatFactProvider.swift */; };
+		04523CCF24629B5500F2616B /* CatFactApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04523CCE24629B5500F2616B /* CatFactApi.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +52,9 @@
 		04523CB82462990600F2616B /* RouterAPIUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RouterAPIUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		04523CBC2462990600F2616B /* RouterAPIUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterAPIUITests.swift; sourceTree = "<group>"; };
 		04523CBE2462990600F2616B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		04523CCA24629A2000F2616B /* RandomFact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomFact.swift; sourceTree = "<group>"; };
+		04523CCC24629B0B00F2616B /* CatFactProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatFactProvider.swift; sourceTree = "<group>"; };
+		04523CCE24629B5500F2616B /* CatFactApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatFactApi.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +105,9 @@
 		04523C992462990200F2616B /* RouterAPI */ = {
 			isa = PBXGroup;
 			children = (
+				04523CD224629FEF00F2616B /* Provider */,
+				04523CD124629FA200F2616B /* Router */,
+				04523CD024629F9900F2616B /* Model */,
 				04523C9A2462990200F2616B /* AppDelegate.swift */,
 				04523C9C2462990200F2616B /* SceneDelegate.swift */,
 				04523C9E2462990200F2616B /* ViewController.swift */,
@@ -126,6 +135,30 @@
 				04523CBE2462990600F2616B /* Info.plist */,
 			);
 			path = RouterAPIUITests;
+			sourceTree = "<group>";
+		};
+		04523CD024629F9900F2616B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				04523CCA24629A2000F2616B /* RandomFact.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		04523CD124629FA200F2616B /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				04523CCE24629B5500F2616B /* CatFactApi.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		04523CD224629FEF00F2616B /* Provider */ = {
+			isa = PBXGroup;
+			children = (
+				04523CCC24629B0B00F2616B /* CatFactProvider.swift */,
+			);
+			path = Provider;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -259,9 +292,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04523CCD24629B0B00F2616B /* CatFactProvider.swift in Sources */,
 				04523C9F2462990200F2616B /* ViewController.swift in Sources */,
 				04523C9B2462990200F2616B /* AppDelegate.swift in Sources */,
+				04523CCB24629A2000F2616B /* RandomFact.swift in Sources */,
 				04523C9D2462990200F2616B /* SceneDelegate.swift in Sources */,
+				04523CCF24629B5500F2616B /* CatFactApi.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
