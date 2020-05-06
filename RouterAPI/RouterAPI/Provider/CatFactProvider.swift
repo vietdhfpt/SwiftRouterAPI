@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Combine
 
 public enum APIError: Error {
     case internalError
@@ -15,5 +16,5 @@ public enum APIError: Error {
 }
 
 public protocol CatFactProvider {
-    func randomFact(completion: @escaping((Result<RandomFact, APIError>) -> Void))
+    func randomFact() -> AnyPublisher<RandomFact, APIError>
 }

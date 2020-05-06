@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Combine
 
 public class CatFactApi: CatFactProvider {
     private let baseURL = "https://cat-fact.herokuapp.com"
@@ -23,45 +24,31 @@ public class CatFactApi: CatFactProvider {
 }
 
 extension CatFactApi {
-    public func randomFact(completion: @escaping((Result<RandomFact, APIError>) -> Void)) {
-        request(endpoint: .random, method: .GET, completion: completion)
+    public func randomFact() -> AnyPublisher<RandomFact, APIError> {
+        return call(.random, method: .GET)
     }
     
-    private func request<T: Codable>(endpoint: Endpoint, method: Method,
-                                     completion: @escaping((Result<T, APIError>) -> Void)) {
+    private func call<T: Codable>(_ endPoint: Endpoint, method: Method) -> AnyPublisher<T, APIError> {
+        let urlRequest = request(for: endPoint, method: method)
+        
+        return URLSession.shared.dataTaskPublisher(for: urlRequest)
+            .mapError { _ in APIError.serverError }
+            .map { $0.data }
+            .decode(type: T.self, decoder: JSONDecoder())
+            .mapError { _ in APIError.parsingError }
+            .eraseToAnyPublisher()
+    }
+    
+    private func request(for endpoint: Endpoint, method: Method) -> URLRequest {
         let path = "\(baseURL)\(endpoint.rawValue)"
         guard let url = URL(string: path) else {
-            completion(.failure(.internalError))
-            return
+            preconditionFailure("Bad URL")
         }
         
         var request = URLRequest(url: url)
         request.httpMethod = "\(method)"
         request.allHTTPHeaderFields = ["Content-Type": "application/json"]
-        
-        call(with: request, completion: completion)
+        return request
     }
-    
-    private func call<T: Codable>(with request: URLRequest,
-                                  completion: @escaping((Result<T, APIError>) -> Void)) {
-        let dataTask = URLSession.shared.dataTask(with: request) { (data, response, error) in
-            guard error == nil else {
-                completion(.failure(.serverError))
-                return
-            }
-            
-            do {
-                guard let data = data else {
-                    completion(.failure(.serverError))
-                    return
-                }
-                let object = try JSONDecoder().decode(T.self, from: data)
-                completion(Result.success(object))
-            } catch {
-                completion(Result.failure(.parsingError))
-            }
-        }
-        
-        dataTask.resume()
-    }
+
 }

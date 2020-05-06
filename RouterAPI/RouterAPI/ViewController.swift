@@ -7,9 +7,11 @@
 //
 
 import UIKit
+import Combine
 
 class ViewController: UIViewController {
     
+    var publishers = [AnyCancellable]()
     let catFactApi = CatFactApi()
 
     override func viewDidLoad() {
@@ -18,14 +20,14 @@ class ViewController: UIViewController {
     }
 
     private func fetchData() {
-        catFactApi.randomFact {
-            switch $0 {
-            case .failure(let err):
-                NSLog(err.localizedDescription)
-            case .success(let fact):
-                print(fact)
-            }
-        }
+        catFactApi.randomFact()
+            .map { $0.text }
+            .sink(receiveCompletion: { err in
+                print(err)
+            }, receiveValue: {
+                print($0.description)
+            })
+            .store(in: &publishers)
     }
 }
 
